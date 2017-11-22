@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set +e
 set -x
 
 if [[ $(npm -v) != "$NPM_VERSION" ]]; then
@@ -15,8 +15,8 @@ npm install -g node-pre-gyp@latest
 
 npm init -y
 
-npm install sqlite3 --runtime=node-webkit --target=$NWJS_VERSION --target-arch=x64 --target_platform=win32
+npm install sqlite3 --runtime=node-webkit --target=$NWJS_VERSION --target_arch=$ARCH --target_platform=win32
 
 cd node_modules/sqlite3
 
-node-pre-gyp --runtime=node-webkit --target=$NWJS_VERSION package
+node-pre-gyp --runtime=node-webkit --target=$NWJS_VERSION --target_arch=$ARCH package

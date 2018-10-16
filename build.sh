@@ -15,8 +15,18 @@ npm install -g node-pre-gyp@latest
 
 npm init -y
 
-npm install sqlite3 --runtime=node-webkit --target=$NWJS_VERSION --target_arch=$ARCH --target_platform=win32
+npm install sqlite3
 
 cd node_modules/sqlite3
 
+node-pre-gyp rebuild --runtime=node-webkit --target=$NWJS_VERSION --target_arch=$ARCH --target_platform=win32
+
 node-pre-gyp --runtime=node-webkit --target=$NWJS_VERSION --target_arch=$ARCH package
+
+cd - > /dev/null
+
+mkdir build
+
+find . -type f -name "node-webkit*.tar.gz" -exec cp {} build/ \;
+
+git clean -f -d -x -e "build/"
